@@ -25,14 +25,13 @@ const CharacterList = ({ navigation }: any) => {
             try {
                 const result = await getCharacters(page, filter);
                 if (result) {
-                    setPosts([...posts, ...result.results!]);
+                    setPosts((prevState) => ([...prevState, ...result.results!]));
                     setPostsCount(result.info?.count!);
                 }
             } catch (err) {
                 console.log(err);
             } finally {
                 setIsLoading(false);
-                console.log(posts);
             }
         })();
     }, [page, query]);
