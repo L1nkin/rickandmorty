@@ -11,7 +11,11 @@ import PostsList from '../Components/PostsList';
 import { Character, CharacterFilter } from '../utils/Interfaces';
 import SearchInput from '../Components/SearchInput';
 
-const CharacterList = ({ navigation }: any) => {
+interface CharacterListProps {
+    onCardPress: (item: Character) => void
+}
+
+const CharacterList = ({ onCardPress }: CharacterListProps) => {
     const [posts, setPosts] = useState<Character[]>([]);
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState('');
@@ -19,7 +23,7 @@ const CharacterList = ({ navigation }: any) => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setIsLoading(true);
+        setIsLoading(page === 1);
         const filter: CharacterFilter = { name: query };
         (async () => {
             try {
@@ -28,8 +32,8 @@ const CharacterList = ({ navigation }: any) => {
                     setPosts((prevState) => ([...prevState, ...result.results!]));
                     setPostsCount(result.info?.count!);
                 }
-            } catch (err) {
-                console.log(err);
+            } catch (error) {
+                console.warn(error);
             } finally {
                 setIsLoading(false);
             }
@@ -48,13 +52,6 @@ const CharacterList = ({ navigation }: any) => {
         }
     }, [page, posts.length, postsCount]);
 
-    const didSelectItem = useCallback(
-        (item: Character) => {
-            navigation.navigate('CharacterDetailInfo', { item: item });
-        },
-        [navigation],
-    );
-
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
@@ -65,11 +62,11 @@ const CharacterList = ({ navigation }: any) => {
                     blurRadius={16}
                     source={require('../assets/images/background.jpg')}
                     resizeMode="cover">
-                    <SearchInput handleSearchText={filterCharacters} />
+                    <SearchInput onChangeText={filterCharacters} />
                     <PostsList
                         isLoading={isLoading}
-                        onEndReached={nextPage}
-                        didSelectItem={didSelectItem}
+                        onSelectItem={nextPage}
+                        didSelectItem={onCardPress}
                         items={posts}
                     />
                 </ImageBackground>

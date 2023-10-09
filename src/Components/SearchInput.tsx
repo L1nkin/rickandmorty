@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 
-interface Props {
-    handleSearchText: (text: string) => void
+type Props = {
+    onChangeText: (text: string) => void
 }
 
-const SearchInput = ({ handleSearchText }: Props) => {
+const SearchInput = (props: Props) => {
     return (
-        <TextInput style={styles.input} onChangeText={handleSearchText} placeholder="Найти персонажа ..." />
+        <TextInput style={styles.input} placeholder="Найти персонажа ..." {...props} />
     );
 };
 

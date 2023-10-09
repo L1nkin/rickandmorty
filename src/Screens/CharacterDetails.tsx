@@ -1,9 +1,13 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, Image, View, Text } from 'react-native';
+import { Character } from '../utils/Interfaces';
 
-// TODO: Add types
-const CharacterDetailInfo = ({ route }: any) => {
-    const { item } = route.params;
+interface CharacterDetailsProps {
+    character: Character
+}
+
+const CharacterDetails = ({ character }: CharacterDetailsProps) => {
+    const item = character;
     const statusIconUrl = () => {
         switch (item.status) {
             case 'Alive':
@@ -100,4 +104,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CharacterDetailInfo;
+export default CharacterDetails;
