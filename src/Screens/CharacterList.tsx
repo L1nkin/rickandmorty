@@ -15,6 +15,8 @@ interface CharacterListProps {
     onCardPress: (item: Character) => void
 }
 
+const backgroundImage = require('../assets/images/background.jpg');
+
 const CharacterList = ({ onCardPress }: CharacterListProps) => {
     const [posts, setPosts] = useState<Character[]>([]);
     const [page, setPage] = useState(1);
@@ -60,7 +62,7 @@ const CharacterList = ({ onCardPress }: CharacterListProps) => {
                 <ImageBackground
                     style={styles.image}
                     blurRadius={16}
-                    source={require('../assets/images/background.jpg')}
+                    source={backgroundImage}
                     resizeMode="cover">
                     <SearchInput onChangeText={filterCharacters} />
                     <PostsList

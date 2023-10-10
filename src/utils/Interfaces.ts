@@ -23,11 +23,11 @@ export interface CharacterFilter {
     /**
      * 'Dead' | 'Alive' | 'unknown'
      */
-    status?: string
+    status?: 'Dead' | 'Alive' | 'unknown'
     /**
      * 'Female' | 'Male' | 'Genderless' | 'unknown'
      */
-    gender?: string
+    gender?: 'Female' | 'Male' | 'Genderless' | 'unknown'
     page?: number
 }
 

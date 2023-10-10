@@ -28,8 +28,8 @@ const PostsList = ({ items, onSelectItem, didSelectItem, isLoading }: Props) => 
     );
 
     const configKeyExtractor = (item: Character) => {
-        return item.id.toString()
-    }
+        return item.id.toString();
+    };
 
     if (isLoading) {
         return <Skeleton />;

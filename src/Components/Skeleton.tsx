@@ -1,6 +1,6 @@
 import { FlatList } from 'react-native';
-import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import React from 'react';
+import { SkeletonItem, SkeletonTemplate } from './SkeletonWrapper';
 
 const Skeleton = () => {
     return (
@@ -8,9 +8,9 @@ const Skeleton = () => {
             data={Array(5)}
             renderItem={
                 () => {
-                    return (<SkeletonPlaceholder>
-                        < SkeletonPlaceholder.Item height={104} margin={4} borderRadius={16} borderWidth={2} borderColor={'#fff'} />
-                    </SkeletonPlaceholder >
+                    return (<SkeletonTemplate>
+                        < SkeletonItem height={104} margin={4} borderRadius={16} borderWidth={2} borderColor={'#fff'} />
+                    </SkeletonTemplate >
                     );
                 }} />
     );
