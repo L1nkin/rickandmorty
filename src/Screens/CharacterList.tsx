@@ -11,7 +11,7 @@ import PostsList from '../Components/PostsList';
 import { Character, CharacterFilter } from '../utils/Interfaces';
 import SearchInput from '../Components/SearchInput';
 
-interface CharacterListProps {
+type CharacterListProps = {
     onCardPress: (item: Character) => void
 }
 
@@ -43,10 +43,12 @@ const CharacterList = ({ onCardPress }: CharacterListProps) => {
     }, [page, query]);
 
     const filterCharacters = useCallback((inputText: string) => {
-        setQuery(inputText);
-        setPosts([]);
-        setPage(1);
-    }, []);
+        if (inputText !== query) {
+            setQuery(inputText);
+            setPosts([]);
+            setPage(1);
+        }
+    }, [query]);
 
     const nextPage = useCallback(() => {
         if (posts.length < postsCount && posts.length !== 0) {

@@ -6,7 +6,7 @@ import { Character } from '../utils/Interfaces';
 export const CharacterListScreen: React.FC<CharacterListScreenStackProps> = ({ navigation }) => {
     const navigateToDetails = useCallback(
         (item: Character) => {
-            navigation.navigate('CharacterDetails', { item: item });
+            navigation.navigate('CharacterDetails', { item });
         },
         [navigation],
     );

@@ -6,13 +6,16 @@ import EmptyList from './EmptyList';
 import React, { memo } from 'react';
 import Skeleton from './Skeleton';
 
-interface Props {
+type Props = {
     items: Character[];
     isLoading: boolean;
 
     onSelectItem: () => void;
     didSelectItem: (id: Character) => void;
 }
+
+const keyExtractor = (data: Character) => data.id.toString();
+
 
 const PostsList = ({ items, onSelectItem, didSelectItem, isLoading }: Props) => {
     const renderItem = useCallback(
@@ -27,24 +30,19 @@ const PostsList = ({ items, onSelectItem, didSelectItem, isLoading }: Props) => 
         [didSelectItem]
     );
 
-    const configKeyExtractor = (item: Character) => {
-        return item.id.toString();
-    };
-
     if (isLoading) {
         return <Skeleton />;
-    } else {
-        return (
-            <FlatList
-                onEndReached={onSelectItem}
-                onEndReachedThreshold={0.25}
-                keyExtractor={configKeyExtractor}
-                data={items}
-                renderItem={renderItem}
-                ListEmptyComponent={EmptyList}
-            />
-        );
     }
+    return (
+        <FlatList
+            onEndReached={onSelectItem}
+            onEndReachedThreshold={0.25}
+            keyExtractor={keyExtractor}
+            data={items}
+            renderItem={renderItem}
+            ListEmptyComponent={EmptyList}
+        />
+    );
 };
 
 export default memo(PostsList);

@@ -1,25 +1,19 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, Image, View, Text } from 'react-native';
 import { Character } from '../utils/Interfaces';
+import { IMAGES } from '../utils/Images';
 
-interface CharacterDetailsProps {
+type CharacterDetailsProps = {
     character: Character
 }
 
 const CharacterDetails = ({ character }: CharacterDetailsProps) => {
     const item = character;
-    const statusIconUrl = () => {
-        switch (item.status) {
-            case 'Alive':
-                return require('../assets/images/status_alive.png');
-            case 'Dead':
-                return require('../assets/images/status_dead.png');
-            case 'unknown':
-                return require('../assets/images/status_unknown.png');
-            default:
-                return require('../assets/images/status_unknown.png');
-        }
-    };
+    const itemStatusImage = IMAGES[item.status];
+    const itemType = `Type: ${item.species} ${item.type ? `(${item.type})` : ''}`;
+    const placeOfBirth = `Place of birth: ${item.origin.name}`;
+    const currentPlace = `Current place: ${item.location.name}`;
+
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -33,22 +27,22 @@ const CharacterDetails = ({ character }: CharacterDetailsProps) => {
                         <Text style={styles.name}>{item.name}</Text>
                         <View style={styles.statusInfoView}>
                             <Text style={styles.descriptionText}>Status: {item.status}</Text>
-                            <Image style={styles.statusIcon} source={statusIconUrl()} />
+                            <Image style={styles.statusIcon} source={itemStatusImage} />
                         </View>
                     </View>
                     <View style={styles.viewStyle}>
                         <Text style={styles.descriptionText}>
-                            Type: {item.species} {item.type ? `(${item.type})` : ''}
+                            {itemType}
                         </Text>
                     </View>
                     <View style={styles.viewStyle}>
                         <Text style={styles.descriptionText}>
-                            Place of birth: {item.origin.name}
+                            {placeOfBirth}
                         </Text>
                     </View>
                     <View style={styles.viewStyle}>
                         <Text style={styles.descriptionText}>
-                            Current place: {item.location.name}
+                            {currentPlace}
                         </Text>
                     </View>
                 </View>

@@ -1,7 +1,7 @@
-import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import React, { memo, useCallback } from 'react';
 
-interface Props {
+type Props = {
     id: number
     name: string,
     image: string
@@ -16,10 +16,12 @@ const Post = ({ id, name, image, didSelectItem }: Props) => {
     }, [didSelectItem, id]);
 
     return (
-        <TouchableHighlight
-            activeOpacity={0.7}
-            underlayColor="#fff"
-            style={styles.container}
+        <Pressable
+            style={({ pressed }) => [{
+                opacity: pressed ? 0.7 : 1
+            },
+            styles.container,
+            ]}
             onPress={didTapPost}>
             <View style={styles.content}>
                 <Image style={styles.image} source={{ uri: image }} />
@@ -27,7 +29,7 @@ const Post = ({ id, name, image, didSelectItem }: Props) => {
                     <Text style={styles.text}>{name}</Text>
                 </View>
             </View>
-        </TouchableHighlight>
+        </Pressable>
     );
 };
 
